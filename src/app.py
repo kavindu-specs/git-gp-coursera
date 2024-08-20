@@ -12,3 +12,11 @@ def create_item(item:Item):
     conn.commit()
     item.id = cursor.lastrowid
     return item
+
+@app.delete("/items/{item_id}")
+def delete_item(item_id: int):
+   
+    conn = get_db()
+    conn.execute("DELETE FROM items WHERE id = ?", (item_id,))
+    conn.commit()
+    return {"message": "Item deleted"}
